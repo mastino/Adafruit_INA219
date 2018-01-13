@@ -4,7 +4,13 @@ Adafruit_INA219
 INA219 Current Sensor
 <!-- START COMPATIBILITY TABLE -->
 
-## Compatibility
+
+## Notes for Raspberry Pi
+  - requires the Wiring Pi library to use I2C
+  - http://wiringpi.com/reference/i2c-library/
+  - for linking -lwiringPi 
+
+## Compatibility - deprecated - this is now only for Raspberry Pi
 
 MCU                | Tested Works | Doesn't Work | Not Tested  | Notes
 ------------------ | :----------: | :----------: | :---------: | -----
@@ -33,3 +39,4 @@ STM32F2            |             |             |     X       |
   * ATtiny85 @ 8MHz : Adafruit Gemma, Arduino Gemma, Adafruit Trinket 3V
 
 <!-- END COMPATIBILITY TABLE -->
+

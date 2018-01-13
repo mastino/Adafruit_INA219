@@ -2,7 +2,9 @@
 /*! 
     @file     Adafruit_INA219.h
     @author   K. Townsend (Adafruit Industries)
-	@license  BSD (see license.txt)
+	  @license  BSD (see license.txt)
+
+    @author Brian Gravelle (University of Oregon)
 	
 	This is a library for the Adafruit INA219 breakout board
 	----> https://www.adafruit.com/products/???
@@ -14,16 +16,18 @@
 	@section  HISTORY
 
     v1.0  - First release
+    v1.1  - Modified to work on a raspberry pi using Wiring Pi
 */
 /**************************************************************************/
 
-#if ARDUINO >= 100
- #include "Arduino.h"
-#else
- #include "WProgram.h"
-#endif
+#ifndef __INA219__
+#define __INA219__
 
-#include <Wire.h>
+#include <stdint.h> 
+
+// library for I2C communication
+// refer to http://wiringpi.com/reference/i2c-library/
+#include <wiringPiI2C.h>
 
 /*=========================================================================
     I2C ADDRESS/BITS
@@ -114,7 +118,7 @@ class Adafruit_INA219{
   Adafruit_INA219(uint8_t addr = INA219_ADDRESS);
   void begin(void);
   void begin(uint8_t addr);
-  void setCalibration_32V_2A(void);
+  void setCalibration_32V_2A(void); 
   void setCalibration_32V_1A(void);
   void setCalibration_16V_400mA(void);
   float getBusVoltage_V(void);
@@ -128,10 +132,17 @@ class Adafruit_INA219{
   // values to mA and mW, taking into account the current config settings
   uint32_t ina219_currentDivider_mA;
   uint32_t ina219_powerDivider_mW;
-  
+
+  int i2c; 
+
   void wireWriteRegister(uint8_t reg, uint16_t value);
   void wireReadRegister(uint8_t reg, uint16_t *value);
   int16_t getBusVoltage_raw(void);
   int16_t getShuntVoltage_raw(void);
   int16_t getCurrent_raw(void);
+
+
 };
+
+
+#endif
